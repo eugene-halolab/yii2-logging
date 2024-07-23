@@ -1,0 +1,24 @@
+version: "2"
+services:
+  php:
+    image: yiisoftware/yii2-php:8.2-apache
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - "8000:80"
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: yii2basic
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: yii2basic
+    ports:
+      - "5444:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
